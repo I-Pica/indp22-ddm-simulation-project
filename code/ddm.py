@@ -40,6 +40,12 @@ def sim_ddm(mu=0.5, theta=1, b=0, z=0, sigma=1, n_trials=1000, dt=.001, T=10):
       errs = np.where(S[:,0]==1)
    return S, hits, errs, thetas, traj
 
+def race_sim():
+    '''
+    Perform a simulation with a race diffusion model for n_trials.
+    '''
+    return 0
+
 def plot_rt_hist(hits, errs):
    '''
    Plot the reaction time distributions for the hit and error trials
