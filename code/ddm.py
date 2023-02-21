@@ -46,17 +46,17 @@ def race_sim():
     '''
     return 0
 
-def plot_rt_hist(hits, errs):
+def plot_rt_hist(hits, errs, bins):
    '''
    Plot the reaction time distributions for the hit and error trials
    '''
    
-   rt_hits_hist, rt_hits_bin_edges = np.histogram(hits)
-   rt_errs_hist, rt_errs_bin_edges = np.histogram(errs)
+   rt_hits_hist, rt_hits_bin_edges = np.histogram(hits, bins)
+   rt_errs_hist, rt_errs_bin_edges = np.histogram(errs, bins)
 
    plt.figure(figsize=(5,5))
-   plt.stairs(rt_hits_hist, rt_hits_bin_edges, label='hits')
-   plt.stairs(rt_errs_hist, rt_errs_bin_edges, label='errors')
+   plt.stairs(rt_hits_hist, rt_hits_bin_edges, label='hits', linewidth=2)
+   plt.stairs(rt_errs_hist, rt_errs_bin_edges, label='errors', linewidth=2)
    plt.xlabel('Reaction time')
    plt.ylabel('Count')
    plt.legend(loc='upper right');
