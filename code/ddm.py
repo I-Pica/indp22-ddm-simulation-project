@@ -11,21 +11,26 @@ def sim_ddm(mu=0.5, theta=1, b=0, z=0, sigma=1, n_trials=1000, dt=.001, T=10):
    S = -np.ones((n_trials,2))
    # compute time varying bounds for b != 0
    thetas = theta/(1+(b/dt*np.linspace(0, 1, n_t)))
-   
+   traj = np.zeros((n_trials, n_t))
+
    for tr in range(n_trials):
       dW   = np.random.randn(n_t,1) # noise vector
       dx   = mu*dt + sigma*dW*np.sqrt(dt)
       dx[0] += z # starting point
       x    = np.cumsum(dx,0)
+      
+      traj[tr,:] = np.squeeze(x)
     
       for ti in range(n_t):
          if x[ti] >= thetas[ti]:
-            S[tr,:] = [1, t[ti]]                                         
+            S[tr,:] = [1, t[ti]] 
             break
          elif x[ti] <= -thetas[ti]:
             S[tr,:] = [0, t[ti]]         
             break
-
+   
+   traj[tr, ti:n_t] = np.nan
+    
    # Get the hit and error trials
    if np.sign(mu)>0:
       hits = np.where(S[:,0]==1)
@@ -33,7 +38,7 @@ def sim_ddm(mu=0.5, theta=1, b=0, z=0, sigma=1, n_trials=1000, dt=.001, T=10):
    else:
       hits = np.where(S[:,0]==0)
       errs = np.where(S[:,0]==1)
-   return S, hits, errs, thetas
+   return S, hits, errs, thetas, traj
 
 def plot_rt_hist(hits, errs):
    '''
