@@ -90,12 +90,12 @@ def plot_quantile_prob_func(S_list, hits_list, errs_list, mu_list, prob_a):
       if mu_list[mu_i] < 0: # drift to b
          # errors for drifts to a and b, respectively
          rt_errs = np.concatenate((S_list[um_i][errs_list[um_i][0],1],\
-                                    S_list[mu_i][errs_list[mu_i][0],1]))
+                                   S_list[mu_i][errs_list[mu_i][0],1]))
          rt_quantiles[mu_i,:] = np.percentile(rt_errs, quantile_list)
       elif mu_list[mu_i] > 0: # drift to a
          # hits for drifts to a and b, respectively
          rt_hits = np.concatenate((S_list[mu_i][hits_list[mu_i][0],1],\
-                                    S_list[um_i][hits_list[um_i][0],1]))
+                                   S_list[um_i][hits_list[um_i][0],1]))
          rt_quantiles[mu_i,:] = np.percentile(rt_hits, quantile_list)
 
    plt.figure(figsize=(5,5))
