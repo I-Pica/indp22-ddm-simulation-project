@@ -114,3 +114,26 @@ def plot_quantile_prob_func(S_list, hits_list, errs_list, mu_list, prob_a):
    plt.xlabel('Probability of a')
    plt.ylabel('Reaction time quantile');
    return rt_quantiles
+
+def plot_trajectories_and_RT(S, hits, errs, traj, t, bins):
+   '''
+   Plot the trajectories of two trials together with the reaction time distributions.
+   '''
+    
+   trialExample = [hits[0][1], errs[0][1]]
+   ranget = [np.sum(~np.isnan(traj[trialExample[0],:])), np.sum(~np.isnan(traj[trialExample[1],:]))]
+
+   fig, axes = plt.subplots(nrows=3, ncols=1, sharex=True, figsize=(8,8))
+
+   #axes[0].subplots_adjust(hspace=0)
+   axes[0].hist(S[hits[0],1], bins, color='teal');
+
+   axes[1].plot(t[0:ranget[0]], traj[trialExample[0],0:ranget[0]].T,color='teal');    
+   axes[1].plot(t[0:ranget[1]], traj[trialExample[1],0:ranget[1]].T,color='orange');
+   axes[1].set_ylim([-1, 1]); axes[1].set_yticks([0])
+
+   axes[2].hist(S[errs[0],1], bins,color='orange');
+   axes[2].invert_yaxis()    
+   plt.subplots_adjust(hspace=0)
+   plt.xlabel('Time from Onset (s)');
+   plt.ylabel('Trial Count');
