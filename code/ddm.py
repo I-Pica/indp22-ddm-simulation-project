@@ -152,3 +152,5 @@ def plot_quantile_prob_func(S_list, hits_list, errs_list, mu_list, prob_a):
     plt.xlabel('Probability of a')
     plt.ylabel('Reaction time quantile');
     return rt_quantiles
+
+    
