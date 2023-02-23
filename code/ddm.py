@@ -6,6 +6,7 @@ def drift_diff(mu, theta, z, sigma, dt, T, clamp_x = [], racer=False, seed=None)
     Simulate a (bounded) drift diffusion process.
     '''
     if seed != None: # set random seed
+        original_seed = np.random.seed()
         np.random.seed(seed)
     # time array and pre-allocate trajectories
     t = np.arange(0, T, dt)
@@ -33,7 +34,7 @@ def drift_diff(mu, theta, z, sigma, dt, T, clamp_x = [], racer=False, seed=None)
 
     traj[:ti] = np.squeeze(x[:ti])
     if seed != None:  # reset random seed
-        np.random.seed(seed=None)
+        np.random.seed(seed=original_seed)
     return S, traj, ti
 
 def sim_ddm(mu=0.5, theta=1, z=0, sigma=1, n_trials=1000, dt=.001, T=10, clamp_x=[], seed=None):
@@ -41,6 +42,7 @@ def sim_ddm(mu=0.5, theta=1, z=0, sigma=1, n_trials=1000, dt=.001, T=10, clamp_x
     Perform a simulation with a drift diffusion model for n_trials.
     '''
     if seed != None: # set random seed
+        original_seed = np.random.seed()
         np.random.seed(seed)
     # time array and pre-alocate results
     t = np.arange(0, T, dt)
@@ -51,7 +53,7 @@ def sim_ddm(mu=0.5, theta=1, z=0, sigma=1, n_trials=1000, dt=.001, T=10, clamp_x
     for tr in range(n_trials):
         S[tr,:], traj[tr,:], _ = drift_diff(mu, theta, z, sigma, dt, T, clamp_x)
     if seed != None:  # reset random seed
-        np.random.seed(seed=None)
+        np.random.seed(seed=original_seed)
     return S, traj
 
 def sim_race(mu, theta, z, sigma, n_trials=1000, dt=.001, T=10, clamp_x=[[],[]], seed=None):
@@ -60,6 +62,7 @@ def sim_race(mu, theta, z, sigma, n_trials=1000, dt=.001, T=10, clamp_x=[[],[]],
     The race diffusion simulation has two racers (a and b).
     '''
     if seed != None:  # set random seed
+        original_seed = np.random.seed()
         np.random.seed(seed=None)
     # time array and pre-alocate results
     t = np.arange(0, T, dt)
@@ -79,9 +82,9 @@ def sim_race(mu, theta, z, sigma, n_trials=1000, dt=.001, T=10, clamp_x=[[],[]],
         S[tr,0] = i
         # Get the confidence, which is theta[loser] - position[loser] @ winner_time
         # Note: I don't think this is a good proxy for confidence.
-        C[tr] = theta[j]-traj[j,tr,ti[i]]
+        C[tr] = theta[j][ti[i]]-traj[j,tr,ti[i]]
     if seed != None:  # reset random seed
-        np.random.seed(seed=None)
+        np.random.seed(seed=original_seed)
     return S, C, traj
 
 def calc_hits_errs(S, mu):
