@@ -187,3 +187,4 @@ def plot_trajectories_and_RT(S, hits, errs, traj, mu, t, bins, colors):
    plt.subplots_adjust(hspace=0)
    plt.xlabel('Time from Onset (s)');
    plt.ylabel('Error Count');
+   
