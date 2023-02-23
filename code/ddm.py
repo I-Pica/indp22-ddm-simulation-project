@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def drift_diff(mu, theta, z, sigma, dt, T, clamp_x = [], racer=False, seed=seed):
+def drift_diff(mu, theta, z, sigma, dt, T, clamp_x = [], racer=False, seed=None):
     '''
     Simulate a (bounded) drift diffusion process.
     '''
