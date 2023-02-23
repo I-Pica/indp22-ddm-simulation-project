@@ -69,7 +69,7 @@ def plot_trajectories_and_RT(S, hits, errs, traj, mu, t, bins, colors):
    axes[0].hist(S[hits[0],1], bins, color=colors[0]);
    axes[0].set_ylabel('Correct Count');
    #axes[0].scatter(t[ranget[0]], 1, 30,color='white', marker='o')
-   ax.set_title('Drift Diffusion Model\nTrajectories and RT Distributions')
+   axes[0].set_title('Drift Diffusion Model\nTrajectories and RT Distributions')
 
    axes[1].plot(t[0:ranget[0]], traj[trialExample[0],0:ranget[0]].T, color=colors[0], clip_on=False);    
    axes[1].plot(t[0:ranget[1]], traj[trialExample[1],0:ranget[1]].T, color=colors[1], clip_on=False);
