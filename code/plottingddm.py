@@ -15,14 +15,14 @@ def plot_rt_hist(hits, errs):
     plt.ylabel('Count')
     plt.legend(loc='upper right');
     return 0
-    
-def plot_psychometric(prob_a, mu_list,colors):
+
+def plot_psychometric(prob_a, mu_list, colors):
     '''
     Plot the psychometric curve for the given responses and drift
     parameters.
     '''
     # plt.figure(figsize=(5,5))
-    plt.scatter(mu_list, prob_a, color=colors)
+    plt.scatter(mu_list, prob_a, 80, color=colors, edgecolors='k')
     plt.xlabel('Drift')
     plt.ylabel('Porbability of a')
     plt.xlim([np.min(mu_list)*1.05, np.max(mu_list)*1.05])
