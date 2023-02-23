@@ -1,10 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def drift_diff(mu, theta, z, sigma, dt, T, clamp_x = [], racer=False):
+def drift_diff(mu, theta, z, sigma, dt, T, clamp_x = [], racer=False, seed=None):
     '''
     Simulate a (bounded) drift diffusion process.
     '''
+    np.random.seed(seed)
     # time array and pre-allocate trajectories
     t = np.arange(0, T, dt)
     n_t = t.size
@@ -30,10 +31,11 @@ def drift_diff(mu, theta, z, sigma, dt, T, clamp_x = [], racer=False):
     traj[:ti] = np.squeeze(x[:ti])
     return S, traj, ti
 
-def sim_ddm(mu=0.5, theta=1, z=0, sigma=1, n_trials=1000, dt=.001, T=10, clamp_x=[]):
+def sim_ddm(mu=0.5, theta=1, z=0, sigma=1, n_trials=1000, dt=.001, T=10, clamp_x=[], seed=None):
     '''
     Perform a simulation with a drift diffusion model for n_trials.
     '''
+    np.random.seed(seed)
     # time array and pre-alocate results
     t = np.arange(0, T, dt)
     n_t = t.size
@@ -44,11 +46,12 @@ def sim_ddm(mu=0.5, theta=1, z=0, sigma=1, n_trials=1000, dt=.001, T=10, clamp_x
         S[tr,:], traj[tr,:], _ = drift_diff(mu, theta, z, sigma, dt, T, clamp_x)
     return S, traj
 
-def sim_race(mu, theta, z, sigma, n_trials=1000, dt=.001, T=10, clamp_x=[]):
+def sim_race(mu, theta, z, sigma, n_trials=1000, dt=.001, T=10, clamp_x=[], seed=None):
     '''
     Perform a simulation with a race diffusion model for n_trials.
     The race diffusion simulation has two racers (a and b).
     '''
+    np.random.seed(seed)
     # time array and pre-alocate results
     t = np.arange(0, T, dt)
     n_t = t.size
