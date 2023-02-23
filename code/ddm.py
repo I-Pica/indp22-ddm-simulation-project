@@ -161,25 +161,26 @@ def plot_trajectories_and_RT(S, hits, errs, traj, mu, t, bins, colors):
    trialExample = [hits[0][1], errs[0][1]]
    ranget = [np.sum(~np.isnan(traj[trialExample[0],:])), np.sum(~np.isnan(traj[trialExample[1],:]))]
 
-   fig, axes = plt.subplots(nrows=3, ncols=1, sharex=True, figsize=(8,8))
+   fig, axes = plt.subplots(nrows=3, ncols=1, sharex=True, figsize=(6,6))
 
    axes[0].hist(S[hits[0],1], bins, color=colors[0]);
    axes[0].set_ylabel('Correct Count');
+   axes[0].scatter(t[ranget[0]], 1, 30,color='white', marker='o')
 
    axes[1].plot(t[0:ranget[0]], traj[trialExample[0],0:ranget[0]].T, color=colors[0], clip_on=False);    
    axes[1].plot(t[0:ranget[1]], traj[trialExample[1],0:ranget[1]].T, color=colors[1], clip_on=False);
-   axes[1].plot(np.linspace(0,6,100),np.linspace(0,6,100)*mu, linestyle='--',color='#3AAFB9')
-   axes[1].scatter(t[ranget[0]], 1, 20,color=colors[0], marker='o',clip_on=False)
+   axes[1].plot(np.linspace(0,6,100),np.linspace(0,6,100)*mu, linestyle='--', linewidth=2,color='#B5BD89')
    axes[1].set_yticks([0]); 
-   axes[1].set_yticklabels(['Starting Point (z)'], color='#EC5781');
+   axes[1].set_yticklabels(['Starting Point (z)'], color='#729EA1');
    axes[1].set_ylim([-1, 1]);
-   axes[1].spines['top'].set_color('#4C5760') 
-   axes[1].spines['top'].set_linewidth(3)
-
+   axes[1].spines['top'].set_color('#EC9192') 
+   axes[1].spines['top'].set_linewidth(2)
    
-   axes[2].spines['top'].set_color('#4C5760')
-   axes[2].spines['top'].set_linewidth(3)
+   axes[2].spines['top'].set_color('#EC9192')
+   axes[2].spines['top'].set_linewidth(2)
    axes[2].hist(S[errs[0],1], bins,color=colors[1]);
+   axes[2].scatter(t[ranget[1]], 1, 30, color='white', marker='o')
+
    axes[2].invert_yaxis()   
    axes[2].set_xlim([0, 6]); 
 
