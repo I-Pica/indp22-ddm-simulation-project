@@ -55,7 +55,7 @@ def plot_quantile_prob_func(S_list, hits_list, errs_list, mu_list, prob_a):
     plt.ylabel('Reaction Time (s)');
     return rt_quantiles
 
-def plot_trajectories_and_RT(S, hits, errs, traj, mu, t, bins, colors):
+def plot_trajectories_and_RT(S, hits, errs, traj, mu, t, z, bins, colors, export):
    '''
    Plot the trajectories of two trials together with the reaction time distributions.
    '''
@@ -73,7 +73,7 @@ def plot_trajectories_and_RT(S, hits, errs, traj, mu, t, bins, colors):
    axes[1].plot(t[0:ranget[0]], traj[trialExample[0],0:ranget[0]].T, color=colors[0], clip_on=False);    
    axes[1].plot(t[0:ranget[1]], traj[trialExample[1],0:ranget[1]].T, color=colors[1], clip_on=False);
    axes[1].plot(np.linspace(0,6,100),np.linspace(0,6,100)*mu, linestyle='--', linewidth=2, color='#B5BD89')
-   axes[1].set_yticks([0]); 
+   axes[1].set_yticks([z]); 
    axes[1].set_ylabel('Accumulated\nEvidence');
    axes[1].set_ylim([-1, 1]);
    #axes[1].spines['top'].set_color('#EC9192') 
